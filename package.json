@@ -7,7 +7,6 @@
     "lint": "./node_modules/.bin/eslint .",
     "check:security": "npm audit",
     "check": "npm run check:security && npm run lint",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "delete-merged-branches": "git branch --merged | egrep -v '(^\\*|master|dev)' | xargs git branch -d",
     "show-merged-branches": "git branch --merged | egrep -v '(^\\*|master|dev)'"
   },
@@ -41,7 +40,6 @@
   },
   "config": {
     "ghooks": {
-      "pre-push": "npm test",
       "pre-commit": "npm run check"
     }
   }
