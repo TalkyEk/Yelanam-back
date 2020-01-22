@@ -1,0 +1,14 @@
+language: node_js
+node_js: 10
+before_install: npm install -g npm
+script:
+  - npm install
+  - npm run test
+deploy:
+  provider: heroku
+  api_key:
+    secure: qd/oomKwq4cTnNvi2Snj+iLZGnFVeutpUeS15V72DFuSBVgUXLr/0QJtzZId6tYuBSrjXsiL8R/ibxrarpy3xw3kdJO027CiWYQXwAswHLSywIrwumpLFQQ9rjye5zmQVUt/TAJNfbqkUoxLRq6KxYYDHnQTpkf/hJqXS44ajGTze90+mRF8hNgYq5kk1uvP+Pb09IyXLQoP/qJ13YfBfYS77PMHAG/3aoV8G/tcewFa5QlqM6SghDXGgBVC9UhaFe5W0SnNF8giTuvTzRQXYppLpoRXFQXW6+/1r5frLblTP8o22xcpo523T8XS9pLbYfyQHPXZamd5BAeOP/rHYZrO9jkjMTklE7uF6y9u/vwmpvU/93hyLyyjs6vgxJXpJCEWe8e9+Wc5BAtBNEAW3dIr8Kj3mCCx69uAaGMzC+lLD9lbfXb0wazOW1fy8WwQOF0ukKEoqtDCXFYS8x5/PBQSW297QVLHuPrHIEg49L7F9ssWJDcqcuXZ21JXHEyC80himolgqXUiQUjTMd9mogtQTqEdPM1tMCuOAiVV/2tWX3HZsbDrVO1+1SuRtd6FHozG3fx7Cq74gUi7+FgBLePGDQT54QCShuTmeAkeaNrr2UCqZr5+VIOnguDlK88DvRvJgcwuXTVcMHXxtjxaQC0gsQZT1Gk3q3URVPlHbRQ=
+  app: Yelanam-back
+  on:
+    repo: TalkyEk/Yelanam-back
+    branch: master
