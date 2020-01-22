@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
     "start:dev": "NODE_ENV=development nodemon $NODE_DEBUG_OPTION src/app.js",
-    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha ./test/**/*test.js --timeout 4000 --exit",
+    "test": "NODE_ENV=test mocha ./test/**/*test.js --timeout 4000 --exit",
     "check:security": "npm audit",
     "check": "npm run check:security && npm run lint",
     "delete-merged-branches": "git branch --merged | egrep -v '(^\\*|master|dev)' | xargs git branch -d",
