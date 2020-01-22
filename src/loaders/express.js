@@ -13,7 +13,7 @@ module.exports = (app) => {
     app.get('/status', (req, res) => res.status(200).send({message: "OK"}));
 
     app.use(cors());
-
+    app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
     // for secure
