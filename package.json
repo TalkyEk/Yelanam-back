@@ -2,9 +2,11 @@
   "name": "yelanam-back",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
+    "start:dev": "NODE_ENV=development nodemon $NODE_DEBUG_OPTION src/app.js",
+    "test": "NODE_ENV=test mocha ./test/**/*test.js --timeout 4000 --exit",
     "check:security": "npm audit",
     "check": "npm run check:security && npm run lint",
     "delete-merged-branches": "git branch --merged | egrep -v '(^\\*|master|dev)' | xargs git branch -d",
@@ -25,8 +27,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validation": "^1.0.3",
+    "helmet": "^3.21.2",
     "http-status": "^1.4.2",
     "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
     "multer": "^1.4.2"
   },
   "devDependencies": {
@@ -34,7 +38,6 @@
     "eslint": "^6.8.0",
     "ghooks": "^2.0.4",
     "mocha": "^7.0.0",
-    "morgan": "^1.9.1",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
   },
