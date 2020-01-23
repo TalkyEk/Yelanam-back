@@ -2,7 +2,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const morgan = require('morgan');
-
+const routes = require('./routes');
+const { makeResponseHelper } = require('./../utils/helper');
 
 module.exports = (app) => {
 
@@ -16,6 +17,14 @@ module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    //add response helper
+    app.use((req, res, next) => {
+        req.makeResponse = makeResponseHelper(res);
+        next()
+    });
+
     // for secure
     app.use(helmet());
+
+    routes(app);
 };
