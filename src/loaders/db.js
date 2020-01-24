@@ -1,20 +1,22 @@
 const pg = require('pg');
-const fs = require('fs-extra');
+const fs = require('fs');
+const logger = require('../utils/logger');
+const config = require('./../config/env');
 
 const conString = "postgres://lzxdfpik:bILzLD1yrycRbYZb74fckcKt2tJTiqZF@balarama.db.elephantsql.com:5432/lzxdfpik";
-const client = new pg.Client(conString);
-const sql = fs.readFileSync( "../../init_db.sql", { encoding: "UTF-8" } );
 
-client.connect(function(err) {
-    if(err) {
-        return console.error('could not connect to postgres', err);
+const init = async () => {
+    //read enviroment variables (need to add after merge)
+    const client = new pg.Client(conString);
+    try {
+        await client.connect();
+        const sql = await fs.readFileSync( config.INIT_DB_FILE, { encoding: "UTF-8" } );
+        await client.query(sql);
+    } catch ( err ) {
+        logger.error(err);
+        throw err;
+    } finally {
+        await client.end()
     }
-    client.query(sql, function(err, result) {
-        if(err) {
-            client.end();
-            return console.error('table users already create', err);
-        }
-        console.log(result);
-        client.end();
-    });
-});
+};
+module.exports = init;

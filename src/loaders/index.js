@@ -1,7 +1,10 @@
 const logger = require('./../utils/logger');
 const expressLoaderSync = require('./express');
+const dbInitLoaderAsync = require('./db');
 
-module.exports = (app) => {
+module.exports = async (app) => {
     expressLoaderSync(app);
     logger.info('Express loaded');
+    await dbInitLoaderAsync();
+    logger.info('Init Db Success')
 };

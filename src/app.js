@@ -7,7 +7,6 @@ async function startServer() {
     if (startServer.instance) return startServer.instance;
     const app = express();
     startServer.instance = app;
-
     await require('./loaders')(app);
     app.listen(config.env.PORT, err => {
         if (err) {
@@ -15,6 +14,7 @@ async function startServer() {
             process.exit(1);
             return;
         }
+
         logger.info(`Server listening on port: ${config.env.PORT}`);
     });
 
