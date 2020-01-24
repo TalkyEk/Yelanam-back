@@ -3,6 +3,6 @@ const { makeUserRepository }  = require('./../db/repositories');
 const logger = require('../utils/logger');
 
 module.exports = () => {
-    makeUserRepository(db);
+    makeUserRepository.initial(db);
     logger.info('user repository is loaded');
 };

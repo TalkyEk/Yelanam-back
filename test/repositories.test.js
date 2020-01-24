@@ -8,7 +8,7 @@ describe('repository test', () => {
     before(async () => {
         // populate user data
         await seed();
-        makeUserRepository(db)
+        makeUserRepository.initial(db)
     });
 
     it('Get user by email', async () => {
