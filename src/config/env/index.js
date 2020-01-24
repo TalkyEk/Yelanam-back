@@ -10,9 +10,7 @@ module.exports = {
         host: process.env.DATABASE_HOST,
         database: process.env.DATABASE,
         password: process.env.DATABASE_PASSWORD,
-        port: process.env.DATABASE_PORT
-    }
-  // TODO move it to db 
-  INIT_DB_FILE: BASE_PATH + '/init_db.sql',
-
+        port: process.env.DATABASE_PORT,
+        initDBfILE:  BASE_PATH + '/init_db.sql',
+    },
 };
