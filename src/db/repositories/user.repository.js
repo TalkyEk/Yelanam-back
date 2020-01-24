@@ -1,12 +1,12 @@
-const makeUserRepository = db => {
+// TODO : base class makeRepository(repositoryObject || repositoryFactory)
+
+const makeUserRepository = () => {
     let database = null;
-    if(makeUserRepository.db)
+    if(makeUserRepository.db) {
         database = makeUserRepository.db;
-    else {
-        if(!db) throw new Error('db param is required');
-        makeUserRepository.db = db;
-        database = makeUserRepository.db
     }
+
+    if(!makeUserRepository.db) throw new Error('first you need to call initial method');
 
     // TODO: implement queries
     return {
@@ -23,4 +23,7 @@ const makeUserRepository = db => {
     }
 };
 
+makeUserRepository.initial = function(db) {
+    makeUserRepository.db = db;
+};
 module.exports = makeUserRepository;
