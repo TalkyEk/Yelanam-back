@@ -1,5 +1,5 @@
-const makeUserRepository = require('./user.repository');
+const makeUserRepository = require('./user.repository')
 
 module.exports = {
-    makeUserRepository
-};
+  makeUserRepository
+}
