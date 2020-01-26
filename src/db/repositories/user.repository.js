@@ -1,29 +1,9 @@
-// TODO : base class makeRepository(repositoryObject || repositoryFactory)
+const baseMethods = require('./base-methods.repository')
 
-const makeUserRepository = () => {
-  let database = null
-  if (makeUserRepository.db) {
-    database = makeUserRepository.db
-  }
-
-  if (!makeUserRepository.db) throw new Error('first you need to call initial method')
-
-  // TODO: implement queries
+function makeUserRepository (tableName, database) {
   return {
-    getAllUsers: () => {
-
-    },
-    getUserById: async () => {
-
-    },
-    getUserByEmail: async email => {
-      const user = await database.query('SELECT * FROM users WHERE email = $1', [email])
-      return user.rows[0]
-    }
+    ...baseMethods(tableName, database)
   }
 }
 
-makeUserRepository.initial = function (db) {
-  makeUserRepository.db = db
-}
 module.exports = makeUserRepository

@@ -1,5 +1,3 @@
-const makeUserRepository = require('./user.repository')
+const makeRepository = require('./repository')
 
-module.exports = {
-  makeUserRepository
-}
+module.exports = makeRepository
