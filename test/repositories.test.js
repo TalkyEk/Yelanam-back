@@ -4,7 +4,7 @@ const { expect } = chai
 const seed = require('./../src/db/seed')
 const db = require('./../src/db')
 const makeRepository = require('./../src/db/repositories')
-chai.use(chaiAsPromised);
+chai.use(chaiAsPromised)
 
 makeRepository.initial(db)
 
@@ -36,5 +36,15 @@ describe('repository test', () => {
     // we can't do that for now
     return expect(usersRepo.find({ email: 'user@gmail.com', nickname: 'test' }))
       .to.be.rejectedWith('One key in param is required!')
+  })
+  it('crete user', async () => {
+    const { usersRepo } = makeRepository()
+    const users = await usersRepo.create({ email: 'test123@gmail.com', password: '123456', nickname: 'test123' })
+    expect(users[0].nickname).to.equal('test123')
+  })
+  it('expect error when params missing', async () => {
+    const { usersRepo } = makeRepository()
+    return expect(usersRepo.create({}))
+      .to.be.rejectedWith('You need to have keys')
   })
 })
