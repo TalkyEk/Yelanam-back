@@ -1,5 +1,5 @@
-const makeResponseHelper = require('./response.utils');
+const makeResponseHelper = require('./response.utils')
 
 module.exports = {
-    makeResponseHelper
-};
+  makeResponseHelper
+}

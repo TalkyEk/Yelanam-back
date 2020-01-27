@@ -1,7 +1,7 @@
-const userRepository = require('./../db/repositories')
+const { userRepo } = require('./../db/repositories')()
 
 const getUserByEmail = email => {
-  return userRepository.getUserByEmail(email)
+  return userRepo.getUserByEmail(email)
 }
 
 module.exports = {
