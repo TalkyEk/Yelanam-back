@@ -47,4 +47,24 @@ describe('repository test', () => {
     return expect(usersRepo.create({}))
       .to.be.rejectedWith('You need to have keys')
   })
+  it('update user', async () => {
+    const { usersRepo } = makeRepository()
+    const users = await usersRepo.update({ email: 'test1234@gmail.com', password: '1234567', nickname: 'test1234' }, {nickname: '@user3'})
+    expect(users[0].nickname).to.equal('test1234')
+  })
+  it('expect error when params missing', async () => {
+    const { usersRepo } = makeRepository()
+    return expect(usersRepo.update({}))
+      .to.be.rejectedWith('You need to have keys')
+  })
+  it('delete user', async () => {
+    const { usersRepo } = makeRepository()
+    const users = await usersRepo.deleteItem({nickname: '@user2'})
+    expect(users[0].nickname).to.equal('@user2')
+  })
+  it('expect error when params missing', async () => {
+    const { usersRepo } = makeRepository()
+    return expect(usersRepo.deleteItem({}))
+      .to.be.rejectedWith('You need to have keys')
+  })
 })

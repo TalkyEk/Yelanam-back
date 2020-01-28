@@ -1,13 +1,4 @@
 function baseMethods (tableName, database) {
-  const madeValuesString = (number) => {
-    let values = ''
-    for (let i = 1; i <= number; i++) {
-      if (i < number) {
-        values = values.concat(` $${i},`)
-      } else values = values.concat(` $${i}`)
-    }
-    return values
-  }
   const find = async (opt) => {
     let data = null
     if (!opt || Object.keys(opt).length === 0) {
@@ -22,20 +13,31 @@ function baseMethods (tableName, database) {
   }
   const create = async (opt) => {
     let data = null
-    const num = madeValuesString(Object.values(opt).length)
+    let values = Object.keys(opt).reduce((acc, cur, index) => acc + `$${index + 1},` , "").slice(0,-1);
     if (Object.keys(opt).length > 0) {
       data = await database.query(`INSERT INTO ${tableName} ( ${Object.keys(opt)} ) ` +
-        `VALUES( ${num} ) RETURNING *`, Object.values(opt))
+        `VALUES( ${values} ) RETURNING *`, Object.values(opt))
     } else {
       throw new Error('You need to have keys')
     }
     return data.rows
   }
-  const update = async (opt) => {
+  const update = async (opt, key) => {
     let data = null
-    const values = 0
-    if (Object.keys(opt) > 0) {
-      data = await database.query(`UPDATE ${tableName} SET email = $1, password = $2, nickname = $3 WHERE nickname = '@user1'`, [values])
+      const params = Object.keys(opt).reduce((acc, cur, index) => acc + `${cur}=$${index + 1},` , "").slice(0,-1)
+    if (Object.keys(opt).length > 0) {
+      data = await database.query(`UPDATE ${tableName} SET ${params} WHERE ${Object.keys(key)[0]} = $4 RETURNING *`,
+        [...Object.values(opt), Object.values(key)[0]])
+    } else {
+      throw new Error('You need to have keys')
+    }
+    return data.rows
+  }
+  const deleteItem = async (key) => {
+    let data = null
+    const params = Object.keys(key).reduce((acc, cur, index) => acc + `${cur}=$${index + 1} ` , "").slice(0,-1)
+    if (Object.keys(key).length > 0) {
+      data = await database.query(`DELETE FROM ${tableName} WHERE ${params} RETURNING *`, Object.values(key))
     } else {
       throw new Error('You need to have keys')
     }
@@ -45,7 +47,7 @@ function baseMethods (tableName, database) {
     find,
     create,
     update,
-    delete: () => console.log('not implemented')
+    deleteItem
   }
 }
 
