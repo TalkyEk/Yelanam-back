@@ -1,4 +1,4 @@
-const createValuesSql = (opt, cbTemplate) => Object.keys(opt).reduce((acc, cur, index) => acc + cbTemplate(acc, cur, index), "" ).slice(0, -1)
+const createValuesSql = (opt, cbTemplate) => Object.keys(opt).reduce((acc, cur, index) => acc + cbTemplate(acc, cur, index), '').slice(0, -1)
 function baseMethods (tableName, database) {
   const find = async (opt) => {
     let data = null
@@ -14,7 +14,7 @@ function baseMethods (tableName, database) {
   }
   const create = async (opt) => {
     let data = null
-    const values = createValuesSql(opt, (acc, cur, index) => `$${index +1},`)
+    const values = createValuesSql(opt, (acc, cur, index) => `$${index + 1},`)
     if (Object.keys(opt).length > 0) {
       data = await database.query(`INSERT INTO ${tableName} ( ${Object.keys(opt)} ) ` +
         `VALUES( ${values} ) RETURNING *`, Object.values(opt))
@@ -36,7 +36,7 @@ function baseMethods (tableName, database) {
   }
   const deleteItem = async (key) => {
     let data = null
-    const params = createValuesSql(key, (acc, cur, index) => `${cur}=$${index + 1} ` )
+    const params = createValuesSql(key, (acc, cur, index) => `${cur}=$${index + 1} `)
     if (Object.keys(key).length > 0) {
       data = await database.query(`DELETE FROM ${tableName} WHERE ${params} RETURNING *`, Object.values(key))
     } else {
