@@ -55,7 +55,7 @@ describe('repository test', () => {
   })
   it('expect error when params missing', async () => {
     const { usersRepo } = makeRepository()
-    expect(usersRepo.update({})).to.be.rejectedWith('You need to have keys')
+    expect(usersRepo.update({})).to.be.rejectedWith('Expect param and key not empty objects')
     expect(usersRepo.create({})).to.be.rejectedWith('Expect param not empty object')
     expect(usersRepo.delete({})).to.be.rejectedWith('You need to have keys')
   })

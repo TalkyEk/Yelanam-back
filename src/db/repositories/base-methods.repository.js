@@ -30,7 +30,7 @@ function baseMethods (tableName, database) {
       data = await database.query(`UPDATE ${tableName} SET ${params} WHERE ${Object.keys(key)[0]} = $${Object.keys(opt).length + 1} RETURNING *`,
         [...Object.values(opt), Object.values(key)[0]])
     } else {
-      throw new Error('You need to have keys')
+      throw new Error('Expect param and key not empty objects')
     }
     return data.rows
   }
